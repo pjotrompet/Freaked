@@ -53,6 +53,7 @@ clean:
 	rm -f LV2/*.lv2/*.so
 
 install:
+	install -d $(DESTDIR)$(PREFIX)/lib/lv2/
 	cp -r LV2/*.lv2/ $(DESTDIR)$(PREFIX)/lib/lv2/
 
 export:
