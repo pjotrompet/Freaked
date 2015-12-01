@@ -1,0 +1,20 @@
+Set of plugins
+Programmed in Faust, Using the Faust compiler
+(for more information see faust.grame.fr)
+
+Tuesday 1 December, 2015
+Initial README
+    So far this contains
+
+      - A pre-delay which can be very long and blurry
+      - A Reverb Tail, can be very long
+        Together these two makes a nice Reverb
+      - A Distortion, based on Filter techniques.
+
+The LV2 Folder contains Binary's for the MOD project (moddevices.com).
+  If you wish to compile the Faust Source to anything other
+  I recommend the Faust online compiler (Faust.grame.fr/onlinecompiler)
+
+Altough I didn't optimalize the plugins for anything other than the MOD,
+It shouldn't be a problem to compile it to the other Formats the Faust compiler
+Provides. 
