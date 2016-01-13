@@ -1,1 +1,1 @@
-process = component( "/home/pjotr/Code/Faust/Reverb/Freakverb/PreFreak.dsp" ) : component( "/home/pjotr/Code/Faust/Reverb/Freakverb/Freaktail.dsp" );
+process = component( "/home/pjotr/Code/Freaked/Faustsrc/PreFreak.dsp" ) : component( "/home/pjotr/Code/Freaked/Faustsrc/Freaktail.dsp" );
