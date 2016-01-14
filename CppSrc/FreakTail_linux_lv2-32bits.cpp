@@ -384,41 +384,50 @@ class dsp {
 
 class Freaktail : public dsp {
 
-  public:
+  private:
 
-	float fRec6[65536];
-	float fRec7[65536];
-	float fRec15[65536];
-	float fRec16[65536];
-	float fRec3[32768];
-	float fRec4[32768];
 	float fRec5[32768];
-	float fRec12[32768];
-	float fRec14[32768];
-	float fRec2[16384];
-	float fRec11[16384];
-	float fRec10[8192];
-	float fRec13[8192];
+	float fRec6[32768];
+	float fRec7[32768];
+	float fRec11[32768];
+	float fRec13[32768];
+	float fRec4[16384];
+	float fRec10[16384];
+	float fRec9[8192];
+	float fRec12[8192];
 	float fRec1[4096];
-	float fRec8[3];
-	float fRec17[3];
+	float fRec2[2];
+	float fRec3[2];
 	float fVec0[2];
 	float fVec1[2];
 	float fRec0[2];
 	float fVec2[2];
-	float fRec9[2];
+	float fRec8[2];
 	FAUSTFLOAT fHslider0;
 	FAUSTFLOAT fHslider1;
 	FAUSTFLOAT fHslider2;
 	int IOTA;
-	FAUSTFLOAT fHslider3;
 	int fSamplingFreq;
 
   public:
 
 	void static metadata(Meta* m) {
-		m->declare("compilation_options", "-single -vec -vs 128 -mcd 64");
-		m->declare("library_path", "Freaktail");
+		m->declare("filter.lib/author", "Julius O. Smith (jos at ccrma.stanford.edu)");
+		m->declare("filter.lib/copyright", "Julius O. Smith III");
+		m->declare("filter.lib/license", "STK-4.3");
+		m->declare("filter.lib/name", "Faust Filter Library");
+		m->declare("filter.lib/reference", "https://ccrma.stanford.edu/~jos/filters/");
+		m->declare("filter.lib/version", "1.29");
+		m->declare("math.lib/author", "GRAME");
+		m->declare("math.lib/copyright", "GRAME");
+		m->declare("math.lib/license", "LGPL with exception");
+		m->declare("math.lib/name", "Math Library");
+		m->declare("math.lib/version", "1.0");
+		m->declare("music.lib/author", "GRAME");
+		m->declare("music.lib/copyright", "GRAME");
+		m->declare("music.lib/license", "LGPL with exception");
+		m->declare("music.lib/name", "Music Library");
+		m->declare("music.lib/version", "1.0");
 	}
 
 	virtual int getNumInputs() {
@@ -477,26 +486,26 @@ class Freaktail : public dsp {
 	virtual void instanceInit(int samplingFreq) {
 		fSamplingFreq = samplingFreq;
 		fHslider0 = FAUSTFLOAT(0.81);
-		fHslider1 = FAUSTFLOAT(0.8);
 		for (int i0 = 0; (i0 < 2); i0 = (i0 + 1)) {
-			fVec0[i0] = 0.f;
+			fRec2[i0] = 0.f;
+
+		}
+		fHslider1 = FAUSTFLOAT(0.8);
+		for (int i1 = 0; (i1 < 2); i1 = (i1 + 1)) {
+			fRec3[i1] = 0.f;
+
+		}
+		for (int i2 = 0; (i2 < 2); i2 = (i2 + 1)) {
+			fVec0[i2] = 0.f;
 
 		}
 		fHslider2 = FAUSTFLOAT(0.81);
 		IOTA = 0;
-		for (int i1 = 0; (i1 < 4096); i1 = (i1 + 1)) {
-			fRec1[i1] = 0.f;
+		for (int i3 = 0; (i3 < 4096); i3 = (i3 + 1)) {
+			fRec1[i3] = 0.f;
 
 		}
-		for (int i2 = 0; (i2 < 16384); i2 = (i2 + 1)) {
-			fRec2[i2] = 0.f;
-
-		}
-		for (int i3 = 0; (i3 < 32768); i3 = (i3 + 1)) {
-			fRec3[i3] = 0.f;
-
-		}
-		for (int i4 = 0; (i4 < 32768); i4 = (i4 + 1)) {
+		for (int i4 = 0; (i4 < 16384); i4 = (i4 + 1)) {
 			fRec4[i4] = 0.f;
 
 		}
@@ -504,11 +513,11 @@ class Freaktail : public dsp {
 			fRec5[i5] = 0.f;
 
 		}
-		for (int i6 = 0; (i6 < 65536); i6 = (i6 + 1)) {
+		for (int i6 = 0; (i6 < 32768); i6 = (i6 + 1)) {
 			fRec6[i6] = 0.f;
 
 		}
-		for (int i7 = 0; (i7 < 65536); i7 = (i7 + 1)) {
+		for (int i7 = 0; (i7 < 32768); i7 = (i7 + 1)) {
 			fRec7[i7] = 0.f;
 
 		}
@@ -520,49 +529,32 @@ class Freaktail : public dsp {
 			fRec0[i9] = 0.f;
 
 		}
-		fHslider3 = FAUSTFLOAT(1.);
-		for (int i10 = 0; (i10 < 3); i10 = (i10 + 1)) {
-			fRec8[i10] = 0.f;
+		for (int i10 = 0; (i10 < 8192); i10 = (i10 + 1)) {
+			fRec9[i10] = 0.f;
 
 		}
-		for (int i11 = 0; (i11 < 8192); i11 = (i11 + 1)) {
+		for (int i11 = 0; (i11 < 16384); i11 = (i11 + 1)) {
 			fRec10[i11] = 0.f;
 
 		}
-		for (int i12 = 0; (i12 < 16384); i12 = (i12 + 1)) {
+		for (int i12 = 0; (i12 < 32768); i12 = (i12 + 1)) {
 			fRec11[i12] = 0.f;
 
 		}
-		for (int i13 = 0; (i13 < 32768); i13 = (i13 + 1)) {
+		for (int i13 = 0; (i13 < 8192); i13 = (i13 + 1)) {
 			fRec12[i13] = 0.f;
 
 		}
-		for (int i14 = 0; (i14 < 8192); i14 = (i14 + 1)) {
+		for (int i14 = 0; (i14 < 32768); i14 = (i14 + 1)) {
 			fRec13[i14] = 0.f;
 
 		}
-		for (int i15 = 0; (i15 < 32768); i15 = (i15 + 1)) {
-			fRec14[i15] = 0.f;
+		for (int i15 = 0; (i15 < 2); i15 = (i15 + 1)) {
+			fVec2[i15] = 0.f;
 
 		}
-		for (int i16 = 0; (i16 < 65536); i16 = (i16 + 1)) {
-			fRec15[i16] = 0.f;
-
-		}
-		for (int i17 = 0; (i17 < 65536); i17 = (i17 + 1)) {
-			fRec16[i17] = 0.f;
-
-		}
-		for (int i18 = 0; (i18 < 2); i18 = (i18 + 1)) {
-			fVec2[i18] = 0.f;
-
-		}
-		for (int i19 = 0; (i19 < 2); i19 = (i19 + 1)) {
-			fRec9[i19] = 0.f;
-
-		}
-		for (int i20 = 0; (i20 < 3); i20 = (i20 + 1)) {
-			fRec17[i20] = 0.f;
+		for (int i16 = 0; (i16 < 2); i16 = (i16 + 1)) {
+			fRec8[i16] = 0.f;
 
 		}
 
@@ -576,9 +568,8 @@ class Freaktail : public dsp {
 	virtual void buildUserInterface(UI* interface) {
 		interface->openVerticalBox("0x00");
 		interface->addHorizontalSlider("Decay", &fHslider0, 0.81f, 0.1f, 1.f, 0.01f);
-		interface->addHorizontalSlider("Drive", &fHslider3, 1.f, 1.f, 49.f, 0.5f);
-		interface->addHorizontalSlider("Gain", &fHslider2, 0.81f, 0.1f, 1.f, 0.01f);
 		interface->addHorizontalSlider("Roomsize", &fHslider1, 0.8f, 0.01f, 5.f, 0.01f);
+		interface->addHorizontalSlider("Tail level", &fHslider2, 0.81f, 0.1f, 1.f, 0.01f);
 		interface->closeBox();
 
 	}
@@ -588,49 +579,44 @@ class Freaktail : public dsp {
 		FAUSTFLOAT* input1 = inputs[1];
 		FAUSTFLOAT* output0 = outputs[0];
 		FAUSTFLOAT* output1 = outputs[1];
-		float fSlow0 = min(1.f, max(0.f, float(fHslider0)));
-		float fSlow1 = min(5.f, max(0.1f, float(fHslider1)));
+		float fSlow0 = (0.001f * float(fHslider0));
+		float fSlow1 = (0.001f * float(fHslider1));
 		float fSlow2 = min(1.f, max(0.f, float(fHslider2)));
-		float fSlow3 = (1.f / (0.f - (min(49.f, max(1.f, float(fHslider3))) - 50.f)));
 		for (int i = 0; (i < count); i = (i + 1)) {
-			fVec0[0] = fSlow1;
-			float fTemp0 = (fSlow1 + fVec0[1]);
-			float fTemp1 = (fSlow2 * float(input0[i]));
-			fRec1[(IOTA & 4095)] = ((fSlow0 * fRec1[((IOTA - (1 + int((301.f * fTemp0)))) & 4095)]) + fTemp1);
-			fRec2[(IOTA & 16383)] = (fTemp1 + (fSlow0 * fRec2[((IOTA - (1 + int((1025.f * fTemp0)))) & 16383)]));
-			fRec3[(IOTA & 32767)] = (fTemp1 + (fSlow0 * fRec3[((IOTA - (1 + int((1723.f * fTemp0)))) & 32767)]));
-			fRec4[(IOTA & 32767)] = (fTemp1 + (fSlow0 * fRec4[((IOTA - (1 + int((2913.f * fTemp0)))) & 32767)]));
-			fRec5[(IOTA & 32767)] = (fTemp1 + (fSlow0 * fRec5[((IOTA - (1 + int((2600.f * fTemp0)))) & 32767)]));
-			fRec6[(IOTA & 65535)] = (fTemp1 + (fSlow0 * fRec6[((IOTA - (1 + int((3581.f * fTemp0)))) & 65535)]));
-			fRec7[(IOTA & 65535)] = (fTemp1 + (fSlow0 * fRec7[((IOTA - (1 + int((3659.f * fTemp0)))) & 65535)]));
-			float fTemp2 = ((((((fRec1[((IOTA - 0) & 4095)] + fRec2[((IOTA - 0) & 16383)]) + fRec3[((IOTA - 0) & 32767)]) + fRec4[((IOTA - 0) & 32767)]) + fRec5[((IOTA - 0) & 32767)]) + fRec6[((IOTA - 0) & 65535)]) + fRec7[((IOTA - 0) & 65535)]);
-			fVec1[0] = (fTemp2 + (0.9996f * fRec0[1]));
-			fRec0[0] = (0.f - (fTemp2 - fVec1[1]));
-			fRec8[0] = ((0.996f * fRec8[2]) - (fSlow3 * fRec0[0]));
-			output0[i] = FAUSTFLOAT(min(1.f, max(-1.f, (fRec0[0] + fRec8[0]))));
-			float fTemp3 = (fSlow2 * float(input1[i]));
-			fRec10[(IOTA & 8191)] = ((fSlow0 * fRec10[((IOTA - (1 + int((461.f * fTemp0)))) & 8191)]) + fTemp3);
-			fRec11[(IOTA & 16383)] = (fTemp3 + (fSlow0 * fRec11[((IOTA - (1 + int((1317.f * fTemp0)))) & 16383)]));
-			fRec12[(IOTA & 32767)] = (fTemp3 + (fSlow0 * fRec12[((IOTA - (1 + int((2317.f * fTemp0)))) & 32767)]));
-			fRec13[(IOTA & 8191)] = (fTemp3 + (fSlow0 * fRec13[((IOTA - (1 + int((506.f * fTemp0)))) & 8191)]));
-			fRec14[(IOTA & 32767)] = (fTemp3 + (fSlow0 * fRec14[((IOTA - (1 + int((3137.f * fTemp0)))) & 32767)]));
-			fRec15[(IOTA & 65535)] = (fTemp3 + (fSlow0 * fRec15[((IOTA - (1 + int((3583.f * fTemp0)))) & 65535)]));
-			fRec16[(IOTA & 65535)] = (fTemp3 + (fSlow0 * fRec16[((IOTA - (1 + int((3727.f * fTemp0)))) & 65535)]));
-			float fTemp4 = ((((((fRec10[((IOTA - 0) & 8191)] + fRec11[((IOTA - 0) & 16383)]) + fRec12[((IOTA - 0) & 32767)]) + fRec13[((IOTA - 0) & 8191)]) + fRec14[((IOTA - 0) & 32767)]) + fRec15[((IOTA - 0) & 65535)]) + fRec16[((IOTA - 0) & 65535)]);
-			fVec2[0] = (fTemp4 + (0.9996f * fRec9[1]));
-			fRec9[0] = (0.f - (fTemp4 - fVec2[1]));
-			fRec17[0] = ((0.996f * fRec17[2]) - (fSlow3 * fRec9[0]));
-			output1[i] = FAUSTFLOAT(min(1.f, max(-1.f, (fRec9[0] + fRec17[0]))));
+			fRec2[0] = ((0.999f * fRec2[1]) + fSlow0);
+			float fTemp0 = min(1.f, max(0.f, fRec2[0]));
+			fRec3[0] = ((0.999f * fRec3[1]) + fSlow1);
+			float fTemp1 = min(5.f, max(0.1f, fRec3[0]));
+			fVec0[0] = fTemp1;
+			float fTemp2 = (fTemp1 + fVec0[1]);
+			float fTemp3 = (fSlow2 * float(input0[i]));
+			fRec1[(IOTA & 4095)] = ((fTemp0 * fRec1[((IOTA - (1 + int((301.f * fTemp2)))) & 4095)]) + fTemp3);
+			fRec4[(IOTA & 16383)] = (fTemp3 + (fTemp0 * fRec4[((IOTA - (1 + int((1025.f * fTemp2)))) & 16383)]));
+			fRec5[(IOTA & 32767)] = (fTemp3 + (fTemp0 * fRec5[((IOTA - (1 + int((1723.f * fTemp2)))) & 32767)]));
+			fRec6[(IOTA & 32767)] = (fTemp3 + (fTemp0 * fRec6[((IOTA - (1 + int((2913.f * fTemp2)))) & 32767)]));
+			fRec7[(IOTA & 32767)] = (fTemp3 + (fTemp0 * fRec7[((IOTA - (1 + int((2600.f * fTemp2)))) & 32767)]));
+			float fTemp4 = ((((fRec1[((IOTA - 0) & 4095)] + fRec4[((IOTA - 0) & 16383)]) + fRec5[((IOTA - 0) & 32767)]) + fRec6[((IOTA - 0) & 32767)]) + fRec7[((IOTA - 0) & 32767)]);
+			fVec1[0] = fTemp4;
+			fRec0[0] = ((fTemp4 + (0.995f * fRec0[1])) - fVec1[1]);
+			output0[i] = FAUSTFLOAT(min(1.f, max(-1.f, fRec0[0])));
+			float fTemp5 = (fSlow2 * float(input1[i]));
+			fRec9[(IOTA & 8191)] = ((fTemp0 * fRec9[((IOTA - (1 + int((461.f * fTemp2)))) & 8191)]) + fTemp5);
+			fRec10[(IOTA & 16383)] = (fTemp5 + (fTemp0 * fRec10[((IOTA - (1 + int((1317.f * fTemp2)))) & 16383)]));
+			fRec11[(IOTA & 32767)] = (fTemp5 + (fTemp0 * fRec11[((IOTA - (1 + int((2317.f * fTemp2)))) & 32767)]));
+			fRec12[(IOTA & 8191)] = (fTemp5 + (fTemp0 * fRec12[((IOTA - (1 + int((506.f * fTemp2)))) & 8191)]));
+			fRec13[(IOTA & 32767)] = (fTemp5 + (fTemp0 * fRec13[((IOTA - (1 + int((3137.f * fTemp2)))) & 32767)]));
+			float fTemp6 = ((((fRec9[((IOTA - 0) & 8191)] + fRec10[((IOTA - 0) & 16383)]) + fRec11[((IOTA - 0) & 32767)]) + fRec12[((IOTA - 0) & 8191)]) + fRec13[((IOTA - 0) & 32767)]);
+			fVec2[0] = fTemp6;
+			fRec8[0] = ((fTemp6 + (0.995f * fRec8[1])) - fVec2[1]);
+			output1[i] = FAUSTFLOAT(min(1.f, max(-1.f, fRec8[0])));
+			fRec2[1] = fRec2[0];
+			fRec3[1] = fRec3[0];
 			fVec0[1] = fVec0[0];
 			IOTA = (IOTA + 1);
 			fVec1[1] = fVec1[0];
 			fRec0[1] = fRec0[0];
-			fRec8[2] = fRec8[1];
-			fRec8[1] = fRec8[0];
 			fVec2[1] = fVec2[0];
-			fRec9[1] = fRec9[0];
-			fRec17[2] = fRec17[1];
-			fRec17[1] = fRec17[0];
+			fRec8[1] = fRec8[0];
 
 		}
 
@@ -639,17 +625,6 @@ class Freaktail : public dsp {
 
 };
 
-
-#ifdef FAUST_UIMACROS
-	#define FAUST_INPUTS 2
-	#define FAUST_OUTPUTS 2
-	#define FAUST_ACTIVES 4
-	#define FAUST_PASSIVES 0
-	FAUST_ADDHORIZONTALSLIDER("Decay", fHslider0, 0.81f, 0.1f, 1.0f, 0.01f);
-	FAUST_ADDHORIZONTALSLIDER("Drive", fHslider3, 1.0f, 1.0f, 49.0f, 0.5f);
-	FAUST_ADDHORIZONTALSLIDER("Gain", fHslider2, 0.81f, 0.1f, 1.0f, 0.01f);
-	FAUST_ADDHORIZONTALSLIDER("Roomsize", fHslider1, 0.8f, 0.01f, 5.0f, 0.01f);
-#endif
 
 //----------------------------------------------------------------------------
 //  LV2 interface

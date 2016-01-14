@@ -384,19 +384,39 @@ class dsp {
 
 class Freakclip : public dsp {
 
-  public:
+  private:
 
+	float fRec1[2];
+	float fRec3[2];
 	float fVec0[2];
+	float fRec4[2];
+	float fRec2[2];
+	float fVec1[2];
 	float fRec0[2];
 	FAUSTFLOAT fHslider0;
 	FAUSTFLOAT fHslider1;
+	FAUSTFLOAT fHslider2;
 	int fSamplingFreq;
 
   public:
 
 	void static metadata(Meta* m) {
-		m->declare("compilation_options", "-single -vec -vs 128 -mcd 64");
-		m->declare("library_path", "FreakClip");
+		m->declare("filter.lib/author", "Julius O. Smith (jos at ccrma.stanford.edu)");
+		m->declare("filter.lib/copyright", "Julius O. Smith III");
+		m->declare("filter.lib/license", "STK-4.3");
+		m->declare("filter.lib/name", "Faust Filter Library");
+		m->declare("filter.lib/reference", "https://ccrma.stanford.edu/~jos/filters/");
+		m->declare("filter.lib/version", "1.29");
+		m->declare("math.lib/author", "GRAME");
+		m->declare("math.lib/copyright", "GRAME");
+		m->declare("math.lib/license", "LGPL with exception");
+		m->declare("math.lib/name", "Math Library");
+		m->declare("math.lib/version", "1.0");
+		m->declare("music.lib/author", "GRAME");
+		m->declare("music.lib/copyright", "GRAME");
+		m->declare("music.lib/license", "LGPL with exception");
+		m->declare("music.lib/name", "Music Library");
+		m->declare("music.lib/version", "1.0");
 	}
 
 	virtual int getNumInputs() {
@@ -446,14 +466,35 @@ class Freakclip : public dsp {
 
 	virtual void instanceInit(int samplingFreq) {
 		fSamplingFreq = samplingFreq;
-		fHslider0 = FAUSTFLOAT(0.996);
+		fHslider0 = FAUSTFLOAT(1.);
 		for (int i0 = 0; (i0 < 2); i0 = (i0 + 1)) {
-			fVec0[i0] = 0.f;
+			fRec1[i0] = 0.f;
 
 		}
-		fHslider1 = FAUSTFLOAT(1.);
+		fHslider1 = FAUSTFLOAT(0.996);
 		for (int i1 = 0; (i1 < 2); i1 = (i1 + 1)) {
-			fRec0[i1] = 0.f;
+			fRec3[i1] = 0.f;
+
+		}
+		for (int i2 = 0; (i2 < 2); i2 = (i2 + 1)) {
+			fVec0[i2] = 0.f;
+
+		}
+		fHslider2 = FAUSTFLOAT(1.);
+		for (int i3 = 0; (i3 < 2); i3 = (i3 + 1)) {
+			fRec4[i3] = 0.f;
+
+		}
+		for (int i4 = 0; (i4 < 2); i4 = (i4 + 1)) {
+			fRec2[i4] = 0.f;
+
+		}
+		for (int i5 = 0; (i5 < 2); i5 = (i5 + 1)) {
+			fVec1[i5] = 0.f;
+
+		}
+		for (int i6 = 0; (i6 < 2); i6 = (i6 + 1)) {
+			fRec0[i6] = 0.f;
 
 		}
 
@@ -466,8 +507,9 @@ class Freakclip : public dsp {
 
 	virtual void buildUserInterface(UI* interface) {
 		interface->openVerticalBox("0x00");
-		interface->addHorizontalSlider("Delay", &fHslider0, 0.996f, 0.f, 1.f, 0.01f);
-		interface->addHorizontalSlider("Drive", &fHslider1, 1.f, 1.f, 9.9f, 0.1f);
+		interface->addHorizontalSlider("Clip", &fHslider0, 1.f, 0.f, 1.f, 0.001f);
+		interface->addHorizontalSlider("Delay", &fHslider1, 0.996f, 0.f, 0.999f, 0.01f);
+		interface->addHorizontalSlider("Drive", &fHslider2, 1.f, 1.f, 9.9f, 0.1f);
 		interface->closeBox();
 
 	}
@@ -475,14 +517,26 @@ class Freakclip : public dsp {
 	virtual void compute(int count, FAUSTFLOAT** inputs, FAUSTFLOAT** outputs) {
 		FAUSTFLOAT* input0 = inputs[0];
 		FAUSTFLOAT* output0 = outputs[0];
-		float fSlow0 = float(fHslider0);
-		float fSlow1 = (1.f / (0.f - (min(9.9f, max(1.f, float(fHslider1))) - 10.f)));
+		float fSlow0 = (0.001f * float(fHslider0));
+		float fSlow1 = (0.001f * float(fHslider1));
+		float fSlow2 = (0.001f * (0.f - (min(9.9f, max(1.f, float(fHslider2))) - 10.f)));
 		for (int i = 0; (i < count); i = (i + 1)) {
-			fVec0[0] = (fSlow0 * fRec0[1]);
+			fRec1[0] = ((0.999f * fRec1[1]) + fSlow0);
+			fRec3[0] = ((0.999f * fRec3[1]) + fSlow1);
+			fVec0[0] = (fRec3[0] * fRec2[1]);
 			float fTemp0 = float(input0[i]);
-			fRec0[0] = (fVec0[1] - (fSlow1 * fTemp0));
-			output0[i] = FAUSTFLOAT((fRec0[0] + fTemp0));
+			fRec4[0] = ((0.999f * fRec4[1]) + fSlow2);
+			fRec2[0] = (fVec0[1] - (fTemp0 / fRec4[0]));
+			float fTemp1 = min(fRec1[0], max((0.f - fRec1[0]), (fRec2[0] + fTemp0)));
+			fVec1[0] = fTemp1;
+			fRec0[0] = (((0.995f * fRec0[1]) + fTemp1) - fVec1[1]);
+			output0[i] = FAUSTFLOAT(fRec0[0]);
+			fRec1[1] = fRec1[0];
+			fRec3[1] = fRec3[0];
 			fVec0[1] = fVec0[0];
+			fRec4[1] = fRec4[0];
+			fRec2[1] = fRec2[0];
+			fVec1[1] = fVec1[0];
 			fRec0[1] = fRec0[0];
 
 		}
@@ -492,15 +546,6 @@ class Freakclip : public dsp {
 
 };
 
-
-#ifdef FAUST_UIMACROS
-	#define FAUST_INPUTS 1
-	#define FAUST_OUTPUTS 1
-	#define FAUST_ACTIVES 2
-	#define FAUST_PASSIVES 0
-	FAUST_ADDHORIZONTALSLIDER("Delay", fHslider0, 0.996f, 0.0f, 1.0f, 0.01f);
-	FAUST_ADDHORIZONTALSLIDER("Drive", fHslider1, 1.0f, 1.0f, 9.9f, 0.1f);
-#endif
 
 //----------------------------------------------------------------------------
 //  LV2 interface
