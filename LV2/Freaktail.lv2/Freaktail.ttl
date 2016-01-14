@@ -39,7 +39,7 @@ a doap:Project ;
 	lv2:name "Decay" ;
 	lv2:default 0.81 ;
 	lv2:minimum 0.1 ;
-	lv2:maximum 1 ;
+	lv2:maximum 1.0 ;
     ] , [
 	a lv2:ControlPort ;
 	a lv2:InputPort ;
@@ -48,7 +48,7 @@ a doap:Project ;
 	lv2:name "Roomsize" ;
 	lv2:default 0.8 ;
 	lv2:minimum 0.01 ;
-	lv2:maximum 5 ;
+	lv2:maximum 5.0 ;
     ] , [
 	a lv2:ControlPort ;
 	a lv2:InputPort ;
@@ -57,7 +57,7 @@ a doap:Project ;
 	lv2:name "Tail level" ;
 	lv2:default 0.81 ;
 	lv2:minimum 0.1 ;
-	lv2:maximum 1 ;
+	lv2:maximum 1.0 ;
     ] , [
 	a lv2:AudioPort ;
 	a lv2:InputPort ;

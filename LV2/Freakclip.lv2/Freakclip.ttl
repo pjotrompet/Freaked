@@ -39,9 +39,9 @@ a doap:Project ;
 	lv2:index 0 ;
 	lv2:symbol "Clip" ;
 	lv2:name "Clip" ;
-	lv2:default 1 ;
-	lv2:minimum 0 ;
-	lv2:maximum 1 ;
+	lv2:default 1.0 ;
+	lv2:minimum 0.0 ;
+	lv2:maximum 1.0 ;
     ] , [
 	a lv2:ControlPort ;
 	a lv2:InputPort ;
@@ -49,7 +49,7 @@ a doap:Project ;
 	lv2:symbol "Delay" ;
 	lv2:name "Delay" ;
 	lv2:default 0.996 ;
-	lv2:minimum 0 ;
+	lv2:minimum 0.0 ;
 	lv2:maximum 0.999 ;
     ] , [
 	a lv2:ControlPort ;

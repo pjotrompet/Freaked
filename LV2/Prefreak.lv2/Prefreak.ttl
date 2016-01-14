@@ -30,8 +30,8 @@ a doap:Project ;
        lv2:binary <Prefreak.so> ;
        lv2:optionalFeature epp:supportsStrictBounds ;
        mod:brand "Freaked" ;
-       lv2:minorVersion 1;
-       lv2:microVersion 0;
+       lv2:minorVersion 0;
+       lv2:microVersion 1;
        doap:license <http://usefulinc.com/doap/licenses/gpl> ;
        rdfs:comment "A blurry pre-delay; can be used in combination with Prefreak to complete the reverb";
 
@@ -42,8 +42,8 @@ a doap:Project ;
 	lv2:symbol "Blur" ;
 	lv2:name "Blur" ;
 	lv2:default 0.6 ;
-	lv2:minimum 0 ;
-	lv2:maximum 15 ;
+	lv2:minimum 0.0 ;
+	lv2:maximum 15.0 ;
     ] , [
 	a lv2:ControlPort ;
 	a lv2:InputPort ;
@@ -51,7 +51,7 @@ a doap:Project ;
 	lv2:symbol "Level" ;
 	lv2:name "Level" ;
 	lv2:default 0.2 ;
-	lv2:minimum 0 ;
+	lv2:minimum 0.0 ;
 	lv2:maximum 1.5 ;
     ] , [
 	a lv2:AudioPort ;
