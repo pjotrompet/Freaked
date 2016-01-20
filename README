@@ -1,6 +1,12 @@
-Set of plugins
-Programmed in Faust, Using the Faust compiler
+Freaked!
+
+This is a set of plugins programmed in Faust, Using the Faust compiler
 (for more information see faust.grame.fr)
+
+Wednesday 20 Januari, 2016
+The layout of the code has been changed. It should be more readable now.
+Also the parameters have been smoothed; instead of clicks there's a more
+tape-like effect in the reverb plugins.
 
 Tuesday 1 December, 2015
 Initial README
@@ -17,4 +23,4 @@ The LV2 Folder contains Binary's for the MOD project (moddevices.com).
 
 Altough I didn't optimalize the plugins for anything other than the MOD,
 It shouldn't be a problem to compile it to the other Formats the Faust compiler
-Provides. 
+Provides.
