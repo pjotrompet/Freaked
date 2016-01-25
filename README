@@ -3,6 +3,12 @@ Freaked!
 This is a set of plugins programmed in Faust, Using the Faust compiler
 (for more information see faust.grame.fr)
 
+
+Monday 25 Januari, 2016
+I came across a awesome real-time granulator programmed by Mayank Sanganeria.
+I made some minor changes and decided to add it to Freaked because it is so.
+
+
 Wednesday 20 Januari, 2016
 The layout of the code has been changed. It should be more readable now.
 Also the parameters have been smoothed; instead of clicks there's a more
