@@ -19,9 +19,9 @@ maxN = 16;
 
 // Controls
 N = hslider("grain density", 2, 2, maxN, 1);
-gLength = hslider("grain length", 0.1, 0.01, 0.5, 0.01);
-dLength = hslider("delay length", 10, 0.5, 10, 0.1);
-mix=hslider("mix", 0.5, 0, 1, 0.01):smooth(0.993);
+gLength = hslider("grain length", 0.1, 0.01, 0.5, 0.01):smooth(0.999);
+dLength = hslider("delay length", 10, 0.5, 10, 0.1):smooth(0.999);
+mix=hslider("mix", 0.5, 0, 1, 0.01):smooth(0.999);
 
 //Granular synth variables
 grainLength = int(samplera*gLength);
