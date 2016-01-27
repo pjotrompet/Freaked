@@ -5,8 +5,8 @@ version: "1.2"
 Code generated with Faust 2.0.a40 (http://faust.grame.fr)
 ------------------------------------------------------------ */
 
-#ifndef  __granulator_H__
-#define  __granulator_H__
+#ifndef  __Granulator_H__
+#define  __Granulator_H__
 /************************************************************************
  ************************************************************************
     FAUST Architecture File
@@ -382,22 +382,22 @@ class dsp {
 #include <math.h>
 
 
-class granulatorSIG0 {
+class GranulatorSIG0 {
 
-  private:
+  public:
 
 
   public:
 
-	int getNumInputsgranulatorSIG0() {
+	int getNumInputsGranulatorSIG0() {
 		return 0;
 
 	}
-	int getNumOutputsgranulatorSIG0() {
+	int getNumOutputsGranulatorSIG0() {
 		return 1;
 
 	}
-	int getInputRategranulatorSIG0(int channel) {
+	int getInputRateGranulatorSIG0(int channel) {
 		int rate;
 		switch (channel) {
 			default: {
@@ -409,7 +409,7 @@ class granulatorSIG0 {
 		return rate;
 
 	}
-	int getOutputRategranulatorSIG0(int channel) {
+	int getOutputRateGranulatorSIG0(int channel) {
 		int rate;
 		switch (channel) {
 			case 0: {
@@ -426,11 +426,11 @@ class granulatorSIG0 {
 
 	}
 
-	void instanceInitgranulatorSIG0(int samplingFreq) {
+	void instanceInitGranulatorSIG0(int samplingFreq) {
 
 	}
 
-	void fillgranulatorSIG0(int count, float* output) {
+	void fillGranulatorSIG0(int count, float* output) {
 		for (int i = 0; (i < count); i = (i + 1)) {
 			output[i] = 0.f;
 
@@ -439,17 +439,17 @@ class granulatorSIG0 {
 	}
 };
 
-granulatorSIG0* newgranulatorSIG0() {return (granulatorSIG0*) new granulatorSIG0(); }
-void deletegranulatorSIG0(granulatorSIG0* dsp) {delete dsp; }
+GranulatorSIG0* newGranulatorSIG0() {return (GranulatorSIG0*) new GranulatorSIG0(); }
+void deleteGranulatorSIG0(GranulatorSIG0* dsp) {delete dsp; }
 
 
 #ifndef FAUSTCLASS
-#define FAUSTCLASS granulator
+#define FAUSTCLASS Granulator
 #endif
 
-class granulator : public dsp {
+class Granulator : public dsp {
 
-  private:
+  public:
 
 	float ftbl0[480000];
 	float ftbl1[480000];
@@ -503,23 +503,25 @@ class granulator : public dsp {
 
 	void static metadata(Meta* m) {
 		m->declare("author", "Mayank Sanganeria");
-		m->declare("filter.lib/author", "Julius O. Smith (jos at ccrma.stanford.edu)");
-		m->declare("filter.lib/copyright", "Julius O. Smith III");
-		m->declare("filter.lib/license", "STK-4.3");
-		m->declare("filter.lib/name", "Faust Filter Library");
-		m->declare("filter.lib/reference", "https://ccrma.stanford.edu/~jos/filters/");
-		m->declare("filter.lib/version", "1.29");
+		m->declare("compilation_options", "-single -vec -vs 128 -mcd 64");
+		m->declare("filter_lib_author", "Julius O. Smith (jos at ccrma.stanford.edu)");
+		m->declare("filter_lib_copyright", "Julius O. Smith III");
+		m->declare("filter_lib_license", "STK-4.3");
+		m->declare("filter_lib_name", "Faust Filter Library");
+		m->declare("filter_lib_reference", "https://ccrma.stanford.edu/~jos/filters/");
+		m->declare("filter_lib_version", "1.29");
+		m->declare("library_path", "granulator");
 		m->declare("maintainer", "Pjotr Lasschuit");
-		m->declare("math.lib/author", "GRAME");
-		m->declare("math.lib/copyright", "GRAME");
-		m->declare("math.lib/license", "LGPL with exception");
-		m->declare("math.lib/name", "Math Library");
-		m->declare("math.lib/version", "1.0");
-		m->declare("music.lib/author", "GRAME");
-		m->declare("music.lib/copyright", "GRAME");
-		m->declare("music.lib/license", "LGPL with exception");
-		m->declare("music.lib/name", "Music Library");
-		m->declare("music.lib/version", "1.0");
+		m->declare("math_lib_author", "GRAME");
+		m->declare("math_lib_copyright", "GRAME");
+		m->declare("math_lib_license", "LGPL with exception");
+		m->declare("math_lib_name", "Math Library");
+		m->declare("math_lib_version", "1.0");
+		m->declare("music_lib_author", "GRAME");
+		m->declare("music_lib_copyright", "GRAME");
+		m->declare("music_lib_license", "LGPL with exception");
+		m->declare("music_lib_name", "Music Library");
+		m->declare("music_lib_version", "1.0");
 		m->declare("name", "Granulator");
 		m->declare("version", "1.2");
 	}
@@ -589,9 +591,9 @@ class granulator : public dsp {
 
 		}
 		fHslider1 = FAUSTFLOAT(2.);
-		granulatorSIG0* sig0 = newgranulatorSIG0();
-		sig0->instanceInitgranulatorSIG0(samplingFreq);
-		sig0->fillgranulatorSIG0(480000, ftbl0);
+		GranulatorSIG0* sig0 = newGranulatorSIG0();
+		sig0->instanceInitGranulatorSIG0(samplingFreq);
+		sig0->fillGranulatorSIG0(480000, ftbl0);
 		iConst0 = min(192000, max(1, fSamplingFreq));
 		fHslider2 = FAUSTFLOAT(10.);
 		for (int i2 = 0; (i2 < 2); i2 = (i2 + 1)) {
@@ -679,8 +681,8 @@ class granulator : public dsp {
 			iRec36[i22] = 0;
 
 		}
-		sig0->instanceInitgranulatorSIG0(samplingFreq);
-		sig0->fillgranulatorSIG0(480000, ftbl1);
+		sig0->instanceInitGranulatorSIG0(samplingFreq);
+		sig0->fillGranulatorSIG0(480000, ftbl1);
 		for (int i23 = 0; (i23 < 2); i23 = (i23 + 1)) {
 			iRec37[i23] = 0;
 
@@ -745,7 +747,7 @@ class granulator : public dsp {
 			iRec52[i38] = 0;
 
 		}
-		deletegranulatorSIG0(sig0);
+		deleteGranulatorSIG0(sig0);
 
 	}
 
@@ -802,8 +804,8 @@ class granulator : public dsp {
 			fRec4[0] = ((0.999f * fRec4[1]) + fSlow4);
 			int iTemp4 = int((float(iConst0) * fRec4[0]));
 			iRec3[0] = ((1 + iRec3[1]) % iTemp4);
-			int iTemp5 = (1103515245 * (12345 + iRec6[1]));
-			int iTemp6 = (1103515245 * (12345 + iTemp5));
+			int iTemp5 = (1 - iVec0[1]);
+			int iTemp6 = (1103515245 * (12345 + iRec6[1]));
 			int iTemp7 = (1103515245 * (12345 + iTemp6));
 			int iTemp8 = (1103515245 * (12345 + iTemp7));
 			int iTemp9 = (1103515245 * (12345 + iTemp8));
@@ -818,68 +820,68 @@ class granulator : public dsp {
 			int iTemp18 = (1103515245 * (12345 + iTemp17));
 			int iTemp19 = (1103515245 * (12345 + iTemp18));
 			int iTemp20 = (1103515245 * (12345 + iTemp19));
-			iRec6[0] = (1103515245 * (12345 + iTemp20));
-			int iRec7 = iTemp20;
-			int iRec8 = iTemp19;
-			int iRec9 = iTemp18;
-			int iRec10 = iTemp17;
-			int iRec11 = iTemp16;
-			int iRec12 = iTemp15;
-			int iRec13 = iTemp14;
-			int iRec14 = iTemp13;
-			int iRec15 = iTemp12;
-			int iRec16 = iTemp11;
-			int iRec17 = iTemp10;
-			int iRec18 = iTemp9;
-			int iRec19 = iTemp8;
-			int iRec20 = iTemp7;
-			int iRec21 = iTemp6;
-			int iTemp21 = int((0.5f * (float(iTemp2) * (1.f + (2.32831e-10f * float(iRec6[0]))))));
-			int iTemp22 = (1 - iVec0[1]);
-			iRec5[0] = ((iRec5[1] * iVec0[1]) + (iTemp21 * iTemp22));
+			int iTemp21 = (1103515245 * (12345 + iTemp20));
+			iRec6[0] = (1103515245 * (12345 + iTemp21));
+			int iRec7 = iTemp21;
+			int iRec8 = iTemp20;
+			int iRec9 = iTemp19;
+			int iRec10 = iTemp18;
+			int iRec11 = iTemp17;
+			int iRec12 = iTemp16;
+			int iRec13 = iTemp15;
+			int iRec14 = iTemp14;
+			int iRec15 = iTemp13;
+			int iRec16 = iTemp12;
+			int iRec17 = iTemp11;
+			int iRec18 = iTemp10;
+			int iRec19 = iTemp9;
+			int iRec20 = iTemp8;
+			int iRec21 = iTemp7;
+			int iTemp22 = int((0.5f * (float(iTemp2) * (1.f + (2.32831e-10f * float(iRec6[0]))))));
+			iRec5[0] = ((iRec5[1] * iVec0[1]) + (iTemp5 * iTemp22));
 			int iTemp23 = ((iRec3[0] + iRec5[0]) % iTemp4);
 			int iTemp24 = (iTemp4 - 1);
 			float fTemp25 = (float(iTemp23) / float(iTemp24));
 			int iTemp26 = int(fTemp25);
-			iRec22[0] = (((1 - iTemp26) * iRec22[1]) + (iTemp26 * iTemp21));
+			iRec22[0] = (((1 - iTemp26) * iRec22[1]) + (iTemp26 * iTemp22));
 			int iTemp27 = int((0.5f * (float(iTemp2) * (1.f + (2.32831e-10f * float(iRec8))))));
-			iRec23[0] = ((iRec23[1] * iVec0[1]) + (iTemp27 * iTemp22));
+			iRec23[0] = ((iVec0[1] * iRec23[1]) + (iTemp5 * iTemp27));
 			int iTemp28 = ((iRec3[0] + iRec23[0]) % iTemp4);
 			float fTemp29 = (float(iTemp28) / float(iTemp24));
 			int iTemp30 = int(fTemp29);
 			iRec24[0] = (((1 - iTemp30) * iRec24[1]) + (iTemp30 * iTemp27));
 			int iTemp31 = int((0.5f * (float(iTemp2) * (1.f + (2.32831e-10f * float(iRec10))))));
-			iRec25[0] = ((iRec25[1] * iVec0[1]) + (iTemp31 * iTemp22));
+			iRec25[0] = ((iVec0[1] * iRec25[1]) + (iTemp5 * iTemp31));
 			int iTemp32 = ((iRec3[0] + iRec25[0]) % iTemp4);
 			float fTemp33 = (float(iTemp32) / float(iTemp24));
 			int iTemp34 = int(fTemp33);
 			iRec26[0] = (((1 - iTemp34) * iRec26[1]) + (iTemp34 * iTemp31));
 			int iTemp35 = int((0.5f * (float(iTemp2) * (1.f + (2.32831e-10f * float(iRec12))))));
-			iRec27[0] = ((iRec27[1] * iVec0[1]) + (iTemp35 * iTemp22));
+			iRec27[0] = ((iVec0[1] * iRec27[1]) + (iTemp5 * iTemp35));
 			int iTemp36 = ((iRec3[0] + iRec27[0]) % iTemp4);
 			float fTemp37 = (float(iTemp36) / float(iTemp24));
 			int iTemp38 = int(fTemp37);
 			iRec28[0] = (((1 - iTemp38) * iRec28[1]) + (iTemp38 * iTemp35));
 			int iTemp39 = int((0.5f * (float(iTemp2) * (1.f + (2.32831e-10f * float(iRec14))))));
-			iRec29[0] = ((iRec29[1] * iVec0[1]) + (iTemp39 * iTemp22));
+			iRec29[0] = ((iVec0[1] * iRec29[1]) + (iTemp5 * iTemp39));
 			int iTemp40 = ((iRec3[0] + iRec29[0]) % iTemp4);
 			float fTemp41 = (float(iTemp40) / float(iTemp24));
 			int iTemp42 = int(fTemp41);
 			iRec30[0] = (((1 - iTemp42) * iRec30[1]) + (iTemp42 * iTemp39));
 			int iTemp43 = int((0.5f * (float(iTemp2) * (1.f + (2.32831e-10f * float(iRec16))))));
-			iRec31[0] = ((iRec31[1] * iVec0[1]) + (iTemp43 * iTemp22));
+			iRec31[0] = ((iVec0[1] * iRec31[1]) + (iTemp5 * iTemp43));
 			int iTemp44 = ((iRec3[0] + iRec31[0]) % iTemp4);
 			float fTemp45 = (float(iTemp44) / float(iTemp24));
 			int iTemp46 = int(fTemp45);
 			iRec32[0] = (((1 - iTemp46) * iRec32[1]) + (iTemp46 * iTemp43));
 			int iTemp47 = int((0.5f * (float(iTemp2) * (1.f + (2.32831e-10f * float(iRec18))))));
-			iRec33[0] = ((iRec33[1] * iVec0[1]) + (iTemp47 * iTemp22));
+			iRec33[0] = ((iVec0[1] * iRec33[1]) + (iTemp5 * iTemp47));
 			int iTemp48 = ((iRec3[0] + iRec33[0]) % iTemp4);
 			float fTemp49 = (float(iTemp48) / float(iTemp24));
 			int iTemp50 = int(fTemp49);
 			iRec34[0] = (((1 - iTemp50) * iRec34[1]) + (iTemp50 * iTemp47));
 			int iTemp51 = int((0.5f * (float(iTemp2) * (1.f + (2.32831e-10f * float(iRec20))))));
-			iRec35[0] = ((iRec35[1] * iVec0[1]) + (iTemp51 * iTemp22));
+			iRec35[0] = ((iVec0[1] * iRec35[1]) + (iTemp5 * iTemp51));
 			int iTemp52 = ((iRec3[0] + iRec35[0]) % iTemp4);
 			float fTemp53 = (float(iTemp52) / float(iTemp24));
 			int iTemp54 = int(fTemp53);
@@ -888,49 +890,49 @@ class granulator : public dsp {
 			float fTemp55 = float(input1[i]);
 			ftbl1[iTemp3] = fTemp55;
 			int iTemp56 = int((0.5f * (float(iTemp2) * (1.f + (2.32831e-10f * float(iRec7))))));
-			iRec37[0] = ((iRec37[1] * iVec0[1]) + (iTemp56 * iTemp22));
+			iRec37[0] = ((iVec0[1] * iRec37[1]) + (iTemp5 * iTemp56));
 			int iTemp57 = ((iRec3[0] + iRec37[0]) % iTemp4);
 			float fTemp58 = (float(iTemp57) / float(iTemp24));
 			int iTemp59 = int(fTemp58);
 			iRec38[0] = (((1 - iTemp59) * iRec38[1]) + (iTemp59 * iTemp56));
 			int iTemp60 = int((0.5f * (float(iTemp2) * (1.f + (2.32831e-10f * float(iRec9))))));
-			iRec39[0] = ((iRec39[1] * iVec0[1]) + (iTemp60 * iTemp22));
+			iRec39[0] = ((iVec0[1] * iRec39[1]) + (iTemp5 * iTemp60));
 			int iTemp61 = ((iRec3[0] + iRec39[0]) % iTemp4);
 			float fTemp62 = (float(iTemp61) / float(iTemp24));
 			int iTemp63 = int(fTemp62);
 			iRec40[0] = (((1 - iTemp63) * iRec40[1]) + (iTemp63 * iTemp60));
 			int iTemp64 = int((0.5f * (float(iTemp2) * (1.f + (2.32831e-10f * float(iRec11))))));
-			iRec41[0] = ((iRec41[1] * iVec0[1]) + (iTemp64 * iTemp22));
+			iRec41[0] = ((iVec0[1] * iRec41[1]) + (iTemp5 * iTemp64));
 			int iTemp65 = ((iRec3[0] + iRec41[0]) % iTemp4);
 			float fTemp66 = (float(iTemp65) / float(iTemp24));
 			int iTemp67 = int(fTemp66);
 			iRec42[0] = (((1 - iTemp67) * iRec42[1]) + (iTemp67 * iTemp64));
 			int iTemp68 = int((0.5f * (float(iTemp2) * (1.f + (2.32831e-10f * float(iRec13))))));
-			iRec43[0] = ((iRec43[1] * iVec0[1]) + (iTemp68 * iTemp22));
+			iRec43[0] = ((iVec0[1] * iRec43[1]) + (iTemp5 * iTemp68));
 			int iTemp69 = ((iRec3[0] + iRec43[0]) % iTemp4);
 			float fTemp70 = (float(iTemp69) / float(iTemp24));
 			int iTemp71 = int(fTemp70);
 			iRec44[0] = (((1 - iTemp71) * iRec44[1]) + (iTemp71 * iTemp68));
 			int iTemp72 = int((0.5f * (float(iTemp2) * (1.f + (2.32831e-10f * float(iRec15))))));
-			iRec45[0] = ((iRec45[1] * iVec0[1]) + (iTemp72 * iTemp22));
+			iRec45[0] = ((iVec0[1] * iRec45[1]) + (iTemp5 * iTemp72));
 			int iTemp73 = ((iRec3[0] + iRec45[0]) % iTemp4);
 			float fTemp74 = (float(iTemp73) / float(iTemp24));
 			int iTemp75 = int(fTemp74);
 			iRec46[0] = (((1 - iTemp75) * iRec46[1]) + (iTemp75 * iTemp72));
 			int iTemp76 = int((0.5f * (float(iTemp2) * (1.f + (2.32831e-10f * float(iRec17))))));
-			iRec47[0] = ((iRec47[1] * iVec0[1]) + (iTemp76 * iTemp22));
+			iRec47[0] = ((iVec0[1] * iRec47[1]) + (iTemp5 * iTemp76));
 			int iTemp77 = ((iRec3[0] + iRec47[0]) % iTemp4);
 			float fTemp78 = (float(iTemp77) / float(iTemp24));
 			int iTemp79 = int(fTemp78);
 			iRec48[0] = (((1 - iTemp79) * iRec48[1]) + (iTemp79 * iTemp76));
 			int iTemp80 = int((0.5f * (float(iTemp2) * (1.f + (2.32831e-10f * float(iRec19))))));
-			iRec49[0] = ((iRec49[1] * iVec0[1]) + (iTemp80 * iTemp22));
+			iRec49[0] = ((iVec0[1] * iRec49[1]) + (iTemp5 * iTemp80));
 			int iTemp81 = ((iRec3[0] + iRec49[0]) % iTemp4);
 			float fTemp82 = (float(iTemp81) / float(iTemp24));
 			int iTemp83 = int(fTemp82);
 			iRec50[0] = (((1 - iTemp83) * iRec50[1]) + (iTemp83 * iTemp80));
 			int iTemp84 = int((0.5f * (float(iTemp2) * (1.f + (2.32831e-10f * float(iRec21))))));
-			iRec51[0] = ((iRec51[1] * iVec0[1]) + (iTemp84 * iTemp22));
+			iRec51[0] = ((iVec0[1] * iRec51[1]) + (iTemp5 * iTemp84));
 			int iTemp85 = ((iRec3[0] + iRec51[0]) % iTemp4);
 			float fTemp86 = (float(iTemp85) / float(iTemp24));
 			int iTemp87 = int(fTemp86);
@@ -984,6 +986,17 @@ class granulator : public dsp {
 };
 
 
+#ifdef FAUST_UIMACROS
+	#define FAUST_INPUTS 2
+	#define FAUST_OUTPUTS 2
+	#define FAUST_ACTIVES 4
+	#define FAUST_PASSIVES 0
+	FAUST_ADDHORIZONTALSLIDER("delay length", fHslider2, 1e+01f, 0.5f, 1e+01f, 0.1f);
+	FAUST_ADDHORIZONTALSLIDER("grain density", fHslider1, 2.0f, 2.0f, 16.0f, 1.0f);
+	FAUST_ADDHORIZONTALSLIDER("grain length", fHslider3, 0.1f, 0.01f, 0.5f, 0.01f);
+	FAUST_ADDHORIZONTALSLIDER("mix", fHslider0, 0.5f, 0.0f, 1.0f, 0.01f);
+#endif
+
 //----------------------------------------------------------------------------
 //  LV2 interface
 //----------------------------------------------------------------------------
@@ -1018,7 +1031,7 @@ class granulator : public dsp {
 #endif
 
 #ifndef PLUGIN_URI
-#define PLUGIN_URI URI_PREFIX "/granulator"
+#define PLUGIN_URI URI_PREFIX "/Granulator"
 #endif
 
 /* This allows various manifest data to be generated from the corresponding
@@ -1035,7 +1048,7 @@ class granulator : public dsp {
 struct LV2Plugin {
   bool active;		// activation status
   int rate;		// sampling rate
-  granulator *dsp;		// the dsp
+  Granulator *dsp;		// the dsp
   LV2UI *ui;		// its Faust interface description
   int n_in, n_out;	// number of input and output control ports
   int *ctrls;		// Faust ui elements (indices into ui->elems)
@@ -1093,7 +1106,7 @@ instantiate(const LV2_Descriptor*     descriptor,
   }
 #endif
   plugin->rate = rate;
-  plugin->dsp = new granulator();
+  plugin->dsp = new Granulator();
   plugin->ui = new LV2UI();
   plugin->dsp->init(plugin->rate);
   plugin->dsp->buildUserInterface(plugin->ui);
@@ -1383,7 +1396,7 @@ int lv2_dyn_manifest_open(LV2_Dyn_Manifest_Handle *handle,
 			  const LV2_Feature *const *features)
 {
   LV2Plugin* plugin = new LV2Plugin;
-  plugin->dsp = new granulator();
+  plugin->dsp = new Granulator();
   plugin->ui = new LV2UI();
   plugin->dsp->init(48000);
   plugin->dsp->buildUserInterface(plugin->ui);
@@ -1476,7 +1489,7 @@ int lv2_dyn_manifest_get_data(LV2_Dyn_Manifest_Handle handle,
     }
   }
 #endif
-  if (!plugin_name) plugin_name = "granulator";
+  if (!plugin_name) plugin_name = "Granulator";
   fprintf(fp, "@prefix doap:  <http://usefulinc.com/ns/doap#> .\n\
 @prefix foaf:  <http://xmlns.com/foaf/0.1/> .\n\
 @prefix lv2:   <http://lv2plug.in/ns/lv2core#> .\n\
@@ -1488,7 +1501,7 @@ int lv2_dyn_manifest_get_data(LV2_Dyn_Manifest_Handle handle,
 <%s>\n\
        a lv2:Plugin ;\n\
        doap:name \"%s\" ;\n\
-       lv2:binary <granulator.so> ;\n\
+       lv2:binary <Granulator.so> ;\n\
        lv2:optionalFeature epp:supportsStrictBounds ;\n\
        lv2:optionalFeature lv2:hardRtCapable ;\n", PLUGIN_URI, plugin_name);
   if (plugin_author)
