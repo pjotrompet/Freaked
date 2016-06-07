@@ -43,7 +43,8 @@ LINK_FLAGS      = $(LINK_OPTS) -Wl,--no-undefined $(LDFLAGS)
 plugins = \
 LV2/Freakclip.lv2/Freakclip.so \
 LV2/Freaktail.lv2/Freaktail.so \
-LV2/Prefreak.lv2/Prefreak.so
+LV2/Prefreak.lv2/Prefreak.so \
+LV2/Granulator.lv2/Granulator.so
 
 # ---------------------------------------------------------------------------------------------------------------------
 
@@ -72,4 +73,6 @@ LV2/Freaktail.lv2/Freaktail.so: CppSrc/FreakTail$(FNAME_SUFFIX)
 LV2/Prefreak.lv2/Prefreak.so: CppSrc/PreFreak$(FNAME_SUFFIX)
 	$(CXX) $< $(BUILD_CXX_FLAGS) -DFAUST_META=0 $(LINK_FLAGS) -shared -o $@
 
+LV2/Granulator.lv2/Granulator.so: CppSrc/Granulator$(FNAME_SUFFIX)
+		$(CXX) $< $(BUILD_CXX_FLAGS) -DFAUST_META=0 $(LINK_FLAGS) -shared -o $@
 # ---------------------------------------------------------------------------------------------------------------------
